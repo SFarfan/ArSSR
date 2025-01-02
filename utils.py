@@ -13,15 +13,29 @@ from skimage.metrics import structural_similarity
 from tqdm import tqdm
 
 
+#def read_img(in_path):
+    #img_lit = []
+    #filenames = os.listdir(in_path)
+    #for f in tqdm(filenames):
+        #img = sitk.ReadImage(os.path.join(in_path, f))
+        #img_vol = sitk.GetArrayFromImage(img)
+        #img_lit.append(img_vol)
+    #return img_lit
+
 def read_img(in_path):
     img_lit = []
     filenames = os.listdir(in_path)
-    for f in tqdm(filenames):
-        img = sitk.ReadImage(os.path.join(in_path, f))
+    for f in filenames:
+        # Ignorar cualquier archivo/carpeta que no sea .nii o .nii.gz
+        if not (f.endswith('.nii') or f.endswith('.nii.gz')):
+            continue
+        img_path = os.path.join(in_path, f)
+
+        # Leer la imagen
+        img = sitk.ReadImage(img_path)
         img_vol = sitk.GetArrayFromImage(img)
         img_lit.append(img_vol)
     return img_lit
-
 
 # -------------------------------
 # here coder is from https://github.com/yinboc/liif/blob/main/utils.py
