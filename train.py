@@ -104,7 +104,7 @@ if __name__ == '__main__':
     # -----------------------
     # model & optimizer
     # -----------------------
-    DEVICE = torch.device('cuda:{}'.format(str(gpu) if torch.cuda.is_available() else 'cpu'))
+    DEVICE = torch.device('cuda:{}'.format(str(gpu)) if torch.cuda.is_available() else 'cpu')
     ArSSR = model.ArSSR(encoder_name=encoder_name, feature_dim=feature_dim,
                         decoder_depth=int(decoder_depth / 2), decoder_width=decoder_width).to(DEVICE)
     loss_fun = torch.nn.L1Loss()
